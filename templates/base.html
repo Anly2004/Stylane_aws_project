@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or "StyleLane" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <div class="brand">
+          <div class="brand__logo">SL</div>
+          <div class="brand__text">
+            <div class="brand__name">StyleLane</div>
+            <div class="brand__tag">Inventory & Restock (Local MVP)</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          {% if me %}
+            <span class="chip chip--muted">{{ me.name }}</span>
+            <span class="chip">{{ role }}</span>
+            <button class="btn btn--ghost" id="logoutBtn" type="button">Logout</button>
+          {% else %}
+            <a class="nav__link" href="{{ url_for('index') }}">Home</a>
+            <a class="nav__link" href="{{ url_for('about') }}">About</a>
+            <a class="nav__link" href="{{ url_for('signup') }}">Sign Up</a>
+            <a class="btn btn--ghost" href="{{ url_for('login') }}">Login</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <main class="container main">
+      {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>
+

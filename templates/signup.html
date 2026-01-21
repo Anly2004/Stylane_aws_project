@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% set title = "Sign Up - StyleLane" %}
+
+{% block content %}
+  <section class="card card--wide">
+    <div class="card__header">
+      <h1 class="h1">Create Account</h1>
+      <p class="muted" id="signupDescription">Join StyleLane to manage your inventory and supplies.</p>
+    </div>
+
+    <form id="signupForm" class="form">
+      <div class="grid grid--2">
+        <label class="field">
+          <span class="field__label">Full Name</span>
+          <input class="input" name="name" type="text" placeholder="John Doe" required />
+        </label>
+        <label class="field">
+          <span class="field__label">Email</span>
+          <input class="input" name="email" type="email" placeholder="you@example.com" required />
+        </label>
+      </div>
+
+      <div class="grid grid--2">
+        <label class="field">
+          <span class="field__label">Password</span>
+          <input class="input" name="password" type="password" placeholder="••••••••" minlength="6" required />
+        </label>
+        <label class="field">
+          <span class="field__label">Confirm Password</span>
+          <input class="input" name="confirm_password" type="password" placeholder="••••••••" minlength="6" required />
+        </label>
+      </div>
+
+      <!-- Store Manager Specific Fields -->
+      <div id="storeManagerFields" class="hidden">
+        <label class="field">
+          <span class="field__label">Admin ID (Brand ID) <span style="color: var(--danger);">*</span></span>
+          <input class="input" name="admin_id" type="text" placeholder="Enter Admin ID provided by your brand admin" />
+          <small class="muted small">You must have a valid Admin ID from your brand administrator.</small>
+        </label>
+        <label class="field">
+          <span class="field__label">Store Name <span style="color: var(--danger);">*</span></span>
+          <input class="input" name="store_name" type="text" placeholder="e.g., StyleLane Downtown" />
+        </label>
+        <label class="field">
+          <span class="field__label">Store Location <span style="color: var(--danger);">*</span></span>
+          <input class="input" name="store_location" type="text" placeholder="e.g., 123 Main St, City, State" />
+        </label>
+      </div>
+
+      <div class="row row--between">
+        <button class="btn" type="submit">Create Account</button>
+        <div class="muted small">
+          Already have an account? <a href="{{ url_for('login') }}" class="link">Sign in</a>
+        </div>
+      </div>
+
+      <div id="signupError" class="alert alert--error hidden"></div>
+      <div id="signupSuccess" class="alert alert--success hidden"></div>
+    </form>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+{% endblock %}

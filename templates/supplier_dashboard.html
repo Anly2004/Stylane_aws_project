@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% set title = "Supplier - StyleLane" %}
+
+{% block content %}
+  <section class="pagehead">
+    <div>
+      <h1 class="h1">Supplier Dashboard</h1>
+      <p class="muted">View restock requests and update shipment status.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card__header">
+      <h2 class="h2">My Restock Requests</h2>
+      <p class="muted small">View all restock requests. Accept any request to assign it to yourself.</p>
+    </div>
+    <div class="tablewrap">
+      <table class="table" id="supplierRequestsTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Store</th>
+            <th>Location</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Status</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/supplier.js') }}"></script>
+{% endblock %}
+

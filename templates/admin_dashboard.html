@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% set title = "Admin Dashboard - StyleLane" %}
+
+{% block content %}
+  <section class="pagehead">
+    <div>
+      <h1 class="h1">Admin Dashboard</h1>
+      <p class="muted">System-wide visibility (users, stores, products, requests).</p>
+      <div style="margin-top: 1rem; padding: 0.75rem 1rem; background: var(--bg-secondary, #1e1e2e); border-radius: 8px; display: inline-flex; align-items: center; gap: 0.75rem;">
+        <span class="muted small">Your Admin ID (Brand ID):</span>
+        <code id="adminIdDisplay" style="font-size: 0.9rem; font-weight: 600; color: var(--primary, #a855f7); background: rgba(168, 85, 247, 0.1); padding: 0.25rem 0.5rem; border-radius: 4px;">—</code>
+        <button id="copyAdminIdBtn" type="button" style="background: transparent; border: 1px solid var(--border, #444); color: var(--text, #fff); padding: 0.375rem 0.5rem; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.875rem;" title="Copy Admin ID">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="5" width="10" height="10" rx="1"></rect>
+            <path d="M3 7v7a2 2 0 0 0 2 2h7"></path>
+            <path d="M3 3a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid grid--3" id="adminCounts">
+    <div class="stat">
+      <div class="stat__label">Stores</div>
+      <div class="stat__value" data-key="stores">—</div>
+    </div>
+    <div class="stat" id="productsStat" style="cursor: pointer;" title="Click to view products added by store managers">
+      <div class="stat__label">Products</div>
+      <div class="stat__value" data-key="products">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat__label">Restock Requests</div>
+      <div class="stat__value" data-key="requests">—</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card__header">
+      <h2 class="h2">My Stores</h2>
+      <p class="muted small">All stores registered under your Brand ID.</p>
+    </div>
+    <div class="tablewrap">
+      <table class="table" id="adminStoresTable">
+        <thead>
+          <tr>
+            <th>Store ID</th>
+            <th>Store Name</th>
+            <th>Location</th>
+            <th>Store Manager</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="productsSection" style="display: none;">
+    <div class="card__header">
+      <h2 class="h2">Products Added by Store Managers</h2>
+      <p class="muted small">Products added by store managers under your Brand ID.</p>
+    </div>
+    <div class="tablewrap">
+      <table class="table" id="adminProductsTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stores & Quantity</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card__header">
+      <h2 class="h2">Recent Restock Requests</h2>
+      <p class="muted small">Latest 10 requests across all stores.</p>
+    </div>
+    <div class="tablewrap">
+      <table class="table" id="adminRecentRequests">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Store</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Status</th>
+            <th>Supplier</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}
+

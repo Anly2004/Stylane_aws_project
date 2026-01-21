@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% set title = "Login - StyleLane" %}
+
+{% block content %}
+  <section class="card card--wide">
+    <div class="card__header">
+      <h1 class="h1">Login</h1>
+      {% if selected_role %}
+        {% set role_names = {"admin": "Admin", "store_manager": "Store Manager", "supplier": "Supplier"} %}
+        <p class="muted">Please login with your {{ role_names.get(selected_role, selected_role) }} account credentials.</p>
+      {% else %}
+        <p class="muted">Use the demo accounts from the README, or your own seeded users.</p>
+      {% endif %}
+    </div>
+
+    <form id="loginForm" class="form">
+      <div class="grid grid--2">
+        <label class="field">
+          <span class="field__label">Email</span>
+          <input class="input" name="email" type="email" placeholder="you@example.com" required />
+        </label>
+        <label class="field">
+          <span class="field__label">Password</span>
+          <input class="input" name="password" type="password" placeholder="••••••••" required />
+        </label>
+      </div>
+
+      <div class="row row--between">
+        <button class="btn" type="submit">Sign in</button>
+        <div class="muted small">
+          Tip: try <span class="kbd">admin@stylelane.local</span> / <span class="kbd">admin123</span>
+        </div>
+      </div>
+
+      <div class="row row--center" style="margin-top: 1rem;">
+        <p class="muted small">
+          Don't have an account? <a href="{{ url_for('signup') }}" class="link">Sign up</a>
+        </p>
+      </div>
+
+      <div id="loginError" class="alert alert--error hidden"></div>
+    </form>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}

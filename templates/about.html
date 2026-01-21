@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% set title = "About - StyleLane" %}
+
+{% block content %}
+  <section class="about">
+    <h1 class="h1">About StyleLane</h1>
+    
+    <div class="about__content">
+      <div class="about__section">
+        <h2 class="h2">Overview</h2>
+        <p class="about__text">
+          StyleLane is a scalable cloud-based inventory management and reporting system designed specifically for fashion retailers. 
+          It provides a comprehensive solution for managing multi-store inventory, tracking stock trends, and automating 
+          communication with suppliers to prevent delays and stockouts.
+        </p>
+      </div>
+
+      <div class="about__section">
+        <h2 class="h2">Key Features</h2>
+        <ul class="about__list">
+          <li><strong>Role-Based Dashboards:</strong> Customized interfaces for Admins, Store Managers, and Suppliers</li>
+          <li><strong>Real-Time Stock Updates:</strong> Track inventory levels across all store locations instantly</li>
+          <li><strong>Automated Restock Requests:</strong> Streamline communication between stores and suppliers</li>
+          <li><strong>Sales Reporting:</strong> Data-driven insights into retail performance</li>
+          <li><strong>Low-Stock Alerts:</strong> Automated notifications to prevent stockouts</li>
+        </ul>
+      </div>
+
+      <div class="about__section">
+        <h2 class="h2">Our Mission</h2>
+        <p class="about__text">
+          StyleLane increases operational efficiency and supply chain transparency by automating manual workflows 
+          and providing data-driven insights into retail performance. We help fashion retailers maintain optimal 
+          inventory levels, reduce waste, and ensure products are always available when customers need them.
+        </p>
+      </div>
+
+      <div class="about__section">
+        <h2 class="h2">Technology</h2>
+        <p class="about__text">
+          Built with Flask and SQLite, StyleLane offers a robust and reliable platform that can easily scale 
+          to cloud infrastructure. The system is designed with security and performance in mind, ensuring your 
+          inventory data is safe and accessible when you need it.
+        </p>
+      </div>
+    </div>
+  </section>
+{% endblock %}

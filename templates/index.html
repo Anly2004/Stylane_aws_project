@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% set title = "StyleLane - Inventory Management" %}
+
+{% block content %}
+  <section class="hero">
+    <div class="hero__content">
+      <h1 class="hero__title">Welcome to StyleLane</h1>
+      <p class="hero__subtitle">Scalable Cloud-based Inventory Management and Reporting System for Fashion</p>
+    </div>
+  </section>
+
+  <section class="roles">
+    <h2 class="roles__title">Select Your Role</h2>
+    <div class="roles__grid">
+      <a href="{{ url_for('signup', role='admin') }}" class="role-card role-card--admin">
+        <h3 class="role-card__title">Admin</h3>
+        <p class="role-card__desc">Manage users, stores, and view system-wide reports and analytics.</p>
+      </a>
+      
+      <a href="{{ url_for('signup', role='store_manager') }}" class="role-card role-card--manager">
+        <h3 class="role-card__title">Store Manager</h3>
+        <p class="role-card__desc">Update inventory, track stock, and create restock requests.</p>
+      </a>
+      
+      <a href="{{ url_for('signup', role='supplier') }}" class="role-card role-card--supplier">
+        <h3 class="role-card__title">Supplier</h3>
+        <p class="role-card__desc">View restock requests and update shipment status.</p>
+      </a>
+    </div>
+  </section>
+{% endblock %}
