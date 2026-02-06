@@ -34,7 +34,7 @@ async function loadInventory() {
       const qtyInput = tr.querySelector("input");
       const saveBtn = tr.querySelectorAll("button")[0];
       const removeBtn = tr.querySelectorAll("button")[1];
-      
+
       saveBtn.addEventListener("click", async () => {
         saveBtn.disabled = true;
         try {
@@ -57,7 +57,7 @@ async function loadInventory() {
       removeBtn.addEventListener("click", async () => {
         const confirmRemove = confirm("Do you want to:\n1. Set quantity to 0 (keep item)\n2. Remove item completely\n\nClick OK to remove completely, Cancel to set quantity to 0");
         const removeCompletely = confirmRemove;
-        
+
         removeBtn.disabled = true;
         try {
           await apiFetch("/api/store/inventory/remove", {
@@ -114,7 +114,8 @@ function bindRestockForm() {
       const data = await apiFetch("/api/store/restock/create", {
         method: "POST",
         body: JSON.stringify({
-          product_id: Number(product.value),
+          // Send the product ID as a string (UUID), not a number
+          product_id: product.value,
           requested_qty: Number(qty.value || 1),
         }),
       });

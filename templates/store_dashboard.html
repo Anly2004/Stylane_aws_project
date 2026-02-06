@@ -2,119 +2,118 @@
 {% set title = "Store Manager - StyleLane" %}
 
 {% block content %}
-  <section class="pagehead">
-    <div>
-      <h1 class="h1">Store Manager</h1>
-      <p class="muted">Update stock, create restock requests.</p>
-    </div>
-  </section>
+<section class="pagehead">
+  <div>
+    <h1 class="h1">Store Manager</h1>
+    <p class="muted">Update stock, create restock requests.</p>
+  </div>
+</section>
 
-  <section class="grid grid--2">
-    <div class="card">
-      <div class="card__header">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <h2 class="h2">Inventory</h2>
-            <p class="muted small">Edit quantity and save. (Updates instantly in SQLite.)</p>
-          </div>
-          <div style="display: flex; gap: 10px;">
-            <button class="btn" id="addProductBtn" type="button">Add Product</button>
-          </div>
+<section class="grid grid--2">
+  <div class="card">
+    <div class="card__header">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h2 class="h2">Inventory</h2>
+          <p class="muted small">Edit quantity and save. (Updates instantly in SQLite.)</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn" id="addProductBtn" type="button">Add Product</button>
         </div>
       </div>
-      <div id="addProductFormContainer" class="hidden" style="padding: 18px; border-bottom: 1px solid var(--border);">
-        <form id="addProductForm" class="form">
-          <h3 class="h2" style="margin-bottom: 12px;">Add Custom Product</h3>
-          <label class="field">
-            <span class="field__label">Product Name</span>
-            <input class="input" name="name" type="text" placeholder="e.g., Blue Summer Dress" required />
-          </label>
-          <div class="grid grid--2">
-            <label class="field">
-              <span class="field__label">Category</span>
-              <input class="input" name="category" type="text" placeholder="e.g., Dresses" required />
-            </label>
-            <label class="field">
-              <span class="field__label">Price ($)</span>
-              <input class="input" name="price" type="number" step="0.01" min="0" placeholder="0.00" required />
-            </label>
-          </div>
-          <label class="field">
-            <span class="field__label">Initial Quantity</span>
-            <input class="input" name="quantity" type="number" min="0" value="0" required />
-          </label>
-          <div class="row row--between">
-            <button class="btn" type="submit">Add to Inventory</button>
-            <button class="btn btn--ghost" type="button" id="cancelAddBtn">Cancel</button>
-          </div>
-          <div id="addProductError" class="alert alert--error hidden"></div>
-          <div id="addProductSuccess" class="alert alert--success hidden"></div>
-        </form>
-      </div>
-      <div class="tablewrap">
-        <table class="table" id="storeInventoryTable">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
     </div>
-
-    <div class="card">
-      <div class="card__header">
-        <h2 class="h2">Create Restock Request</h2>
-        <p class="muted small">Send a request to the supplier assigned to the product.</p>
-      </div>
-
-      <form id="restockForm" class="form">
+    <div id="addProductFormContainer" class="hidden" style="padding: 18px; border-bottom: 1px solid var(--border);">
+      <form id="addProductForm" class="form">
+        <h3 class="h2" style="margin-bottom: 12px;">Add Custom Product</h3>
         <label class="field">
-          <span class="field__label">Product</span>
-          <select class="input" id="restockProduct" required></select>
+          <span class="field__label">Product Name</span>
+          <input class="input" name="name" type="text" placeholder="e.g., Blue Summer Dress" required />
         </label>
+        <div class="grid grid--2">
+          <label class="field">
+            <span class="field__label">Category</span>
+            <input class="input" name="category" type="text" placeholder="e.g., Dresses" required />
+          </label>
+          <label class="field">
+            <span class="field__label">Price ($)</span>
+            <input class="input" name="price" type="number" step="0.01" min="0" placeholder="0.00" required />
+          </label>
+        </div>
         <label class="field">
-          <span class="field__label">Requested Quantity</span>
-          <input class="input" id="restockQty" type="number" min="1" value="10" required />
+          <span class="field__label">Initial Quantity</span>
+          <input class="input" name="quantity" type="number" min="0" value="0" required />
         </label>
-
         <div class="row row--between">
-          <button class="btn" type="submit">Create Request</button>
-          <div id="restockMsg" class="muted small"></div>
+          <button class="btn" type="submit">Add to Inventory</button>
+          <button class="btn btn--ghost" type="button" id="cancelAddBtn">Cancel</button>
         </div>
+        <div id="addProductError" class="alert alert--error hidden"></div>
+        <div id="addProductSuccess" class="alert alert--success hidden"></div>
       </form>
     </div>
-  </section>
-
-  <section class="card">
-    <div class="card__header">
-      <h2 class="h2">Request Status</h2>
-      <p class="muted small">Track the status of your restock requests.</p>
-    </div>
     <div class="tablewrap">
-      <table class="table" id="storeRequestsTable">
+      <table class="table" id="storeInventoryTable">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Product</th>
-            <th>Quantity</th>
-            <th>Status</th>
-            <th>Supplier</th>
-            <th>Created</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th></th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
     </div>
-  </section>
+  </div>
+
+  <div class="card">
+    <div class="card__header">
+      <h2 class="h2">Create Restock Request</h2>
+      <p class="muted small">Send a request to the supplier assigned to the product.</p>
+    </div>
+
+    <form id="restockForm" class="form">
+      <label class="field">
+        <span class="field__label">Product</span>
+        <select class="input" id="restockProduct" required></select>
+      </label>
+      <label class="field">
+        <span class="field__label">Requested Quantity</span>
+        <input class="input" id="restockQty" type="number" min="1" value="10" required />
+      </label>
+
+      <div class="row row--between">
+        <button class="btn" type="submit">Create Request</button>
+        <div id="restockMsg" class="muted small"></div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card__header">
+    <h2 class="h2">Request Status</h2>
+    <p class="muted small">Track the status of your restock requests.</p>
+  </div>
+  <div class="tablewrap">
+    <table class="table" id="storeRequestsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Status</th>
+          <th>Supplier</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
 {% endblock %}
 
 {% block scripts %}
-  <script src="{{ url_for('static', filename='js/store.js') }}"></script>
+<script src="{{ url_for('static', filename='js/store.js') }}?v={{ range(1, 10000) | random }}"></script>
 {% endblock %}
-
