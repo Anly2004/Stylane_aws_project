@@ -6,7 +6,10 @@ import string
 import uuid
 from datetime import datetime
 from functools import wraps
+<<<<<<< HEAD
 from decimal import Decimal
+=======
+>>>>>>> 36a7adf28225fe68e4484914302ffcb424f92496
 
 import boto3
 from botocore.exceptions import ClientError
@@ -72,6 +75,7 @@ def get_table(table_name: str):
     return dynamodb.Table(table_name)
 
 
+<<<<<<< HEAD
 def _convert_floats_to_decimal(data):
     """
     Recursively convert float values to Decimal for DynamoDB.
@@ -86,6 +90,8 @@ def _convert_floats_to_decimal(data):
     return data
 
 
+=======
+>>>>>>> 36a7adf28225fe68e4484914302ffcb424f92496
 def get_user_by_id(user_id: str) -> dict | None:
     """Get user by ID."""
     try:
@@ -201,8 +207,12 @@ def create_product(product_data: dict) -> str:
     product_id = str(uuid.uuid4())
     product_data['id'] = product_id
     product_data['created_at'] = datetime.utcnow().isoformat()
+<<<<<<< HEAD
     # Ensure floats are converted to Decimal for DynamoDB
     table.put_item(Item=_convert_floats_to_decimal(product_data))
+=======
+    table.put_item(Item=product_data)
+>>>>>>> 36a7adf28225fe68e4484914302ffcb424f92496
     return product_id
 
 
@@ -400,9 +410,13 @@ def create_restock_request(request_data: dict) -> str:
 def update_restock_request(request_id: str, updates: dict) -> None:
     """Update restock request."""
     table = get_table(TABLE_RESTOCK_REQUESTS)
+<<<<<<< HEAD
     # Use ExpressionAttributeNames to avoid reserved keyword issues (e.g., "status")
     expr_names = {f"#{k}": k for k in updates.keys()}
     update_expr = "SET " + ", ".join([f"#{k} = :{k}" for k in updates.keys()])
+=======
+    update_expr = "SET " + ", ".join([f"{k} = :{k}" for k in updates.keys()])
+>>>>>>> 36a7adf28225fe68e4484914302ffcb424f92496
     expr_values = {f":{k}": v for k, v in updates.items()}
     expr_values[':updated_at'] = datetime.utcnow().isoformat()
     update_expr += ", updated_at = :updated_at"
@@ -410,8 +424,12 @@ def update_restock_request(request_id: str, updates: dict) -> None:
     table.update_item(
         Key={'id': request_id},
         UpdateExpression=update_expr,
+<<<<<<< HEAD
         ExpressionAttributeValues=expr_values,
         ExpressionAttributeNames=expr_names,
+=======
+        ExpressionAttributeValues=expr_values
+>>>>>>> 36a7adf28225fe68e4484914302ffcb424f92496
     )
 
 
@@ -1230,6 +1248,7 @@ def api_supplier_requests_update():
     if status not in {"accepted", "rejected", "shipped"}:
         return jsonify({"ok": False, "error": "Invalid status"}), 400
 
+<<<<<<< HEAD
     try:
         # Suppliers can accept/update any pending request (except rejected ones)
         # When accepting a request, assign it to this supplier
@@ -1265,6 +1284,31 @@ def api_supplier_requests_update():
         print("Error updating supplier request:", e)
         print(traceback.format_exc())
         return jsonify({"ok": False, "error": "Failed to update request. Please try again."}), 500
+=======
+    # Suppliers can accept/update any pending request (except rejected ones)
+    # When accepting a request, assign it to this supplier
+    req = get_restock_request_by_id(request_id)
+    
+    if not req:
+        return jsonify({"ok": False, "error": "Request not found"}), 404
+
+    # If accepting a request (accepted or shipped), assign it to this supplier
+    # This allows suppliers to "claim" requests by accepting them
+    updates = {'status': status}
+    if status in {"accepted", "shipped"}:
+        updates['supplier_id'] = supplier_id
+    
+    update_restock_request(request_id, updates)
+    
+    # Send restock request status update notification
+    product = get_product_by_id(req.get('product_id', ''))
+    store = get_store_by_id(req.get('store_id', ''))
+    supplier = get_user_by_id(supplier_id)
+    send_notification(
+        "Restock Request Status Update",
+        f"Restock request {request_id} status updated to {status} by supplier {supplier.get('name', 'Unknown')} for product {product.get('name', 'Unknown')} at store {store.get('name', 'Unknown')}"
+    )
+>>>>>>> 36a7adf28225fe68e4484914302ffcb424f92496
     
     return jsonify({"ok": True})
 
