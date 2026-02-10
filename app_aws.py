@@ -43,6 +43,14 @@ app.config["SECRET_KEY"] = "dev-only-change-me"
 
 
 # -----------------------
+# HOME ROUTE (ADDED)
+# -----------------------
+@app.route("/")
+def home():
+    return "StyleLane app is running successfully 🚀"
+
+
+# -----------------------
 # SNS NOTIFICATION HELPER
 # -----------------------
 def send_notification(subject: str, message: str) -> None:
@@ -212,14 +220,11 @@ def api_supplier_requests_update():
 
         update_restock_request(request_id, updates)
 
-        product = get_product_by_id(req.get('product_id'))
-        store = get_store_by_id(req.get('store_id'))
-
         send_notification(
             "Restock Request Status Update",
             f"Restock request {request_id} updated to {status}"
         )
-    except Exception as e:
+    except Exception:
         import traceback
         print(traceback.format_exc())
         return jsonify({"ok": False, "error": "Failed to update request"}), 500
@@ -231,4 +236,4 @@ def api_supplier_requests_update():
 # MAIN
 # -----------------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
