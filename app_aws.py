@@ -40,7 +40,7 @@ TABLE_RESTOCK_REQUESTS = 'stylelane_restock_requests'
 # SNS Topic ARN (must be configured in AWS)
 # IMPORTANT: Update this with your actual SNS Topic ARN
 # You can create a topic in AWS SNS and use its ARN here
-SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:123456789012:stylelane-notifications'
+SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:194722438347:stylelane_topic'
 
 # Initialize AWS services
 dynamodb = boto3.resource('dynamodb', region_name=REGION)
