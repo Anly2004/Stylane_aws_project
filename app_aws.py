@@ -47,7 +47,7 @@ app.config["SECRET_KEY"] = "dev-only-change-me"
 # -----------------------
 @app.route("/")
 def home():
-    return "StyleLane app is running successfully 🚀"
+    return render_template("index.html")
 
 
 # -----------------------
