@@ -25,10 +25,10 @@
         <span class="chip">{{ role }}</span>
         <button class="btn btn--ghost" id="logoutBtn" type="button">Logout</button>
         {% else %}
-        <a class="nav__link" href="{{ url_for('home') }}">Home</a>
+        <a class="nav__link" href="/home">Home</a>
         <a class="nav__link" href="/about">About</a>
-        <a class="nav__link" href="{{ url_for('signup') }}">Sign Up</a>
-        <a class="btn btn--ghost" href="{{ url_for('login') }}">Login</a>
+        <a class="nav__link" href="/signup">Signup</a>
+        <a class="nav__link" href="/login">Login</a>
         {% endif %}
       </nav>
     </div>
@@ -44,3 +44,4 @@
 
 
 </html>
+
